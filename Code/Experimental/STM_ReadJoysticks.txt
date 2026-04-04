@@ -1,0 +1,91 @@
+#include <stdint.h>
+
+/* Base addresses */
+#define PERIPH_BASE         0x40000000UL
+#define AHB1PERIPH_BASE     0x40020000UL
+#define APB2PERIPH_BASE     0x40010000UL
+
+#define GPIOA_BASE          (AHB1PERIPH_BASE + 0x0000UL)
+#define RCC_BASE            (AHB1PERIPH_BASE + 0x3800UL)
+#define ADC1_BASE           (APB2PERIPH_BASE + 0x2000UL)
+
+/* RCC registers */
+#define RCC_AHB1ENR         (*(volatile uint32_t *)(RCC_BASE + 0x30UL))
+#define RCC_APB2ENR         (*(volatile uint32_t *)(RCC_BASE + 0x44UL))
+
+/* GPIOA registers */
+#define GPIOA_MODER         (*(volatile uint32_t *)(GPIOA_BASE + 0x00UL))
+
+/* ADC1 registers */
+#define ADC1_SR             (*(volatile uint32_t *)(ADC1_BASE + 0x00UL))
+#define ADC1_CR2            (*(volatile uint32_t *)(ADC1_BASE + 0x08UL))
+#define ADC1_SQR1           (*(volatile uint32_t *)(ADC1_BASE + 0x2CUL))
+#define ADC1_SQR3           (*(volatile uint32_t *)(ADC1_BASE + 0x34UL))
+#define ADC1_DR             (*(volatile uint32_t *)(ADC1_BASE + 0x4CUL))
+
+/* Bit definitions */
+#define GPIOAEN             (1U << 0)
+#define ADC1EN              (1U << 8)
+
+#define ADC_CR2_ADON        (1U << 0)
+#define ADC_CR2_SWSTART     (1U << 30)
+#define ADC_SR_EOC          (1U << 1)
+
+/* Variables to watch in debugger */
+volatile uint16_t joy_x = 0;
+volatile uint16_t joy_y = 0;
+
+static void adc_gpio_init(void)
+{
+    /* Enable GPIOA clock */
+    RCC_AHB1ENR |= GPIOAEN;
+
+    /* PA1 -> analog mode (11) */
+    GPIOA_MODER &= ~(3U << (1 * 2));
+    GPIOA_MODER |=  (3U << (1 * 2));
+
+    /* PA4 -> analog mode (11) */
+    GPIOA_MODER &= ~(3U << (4 * 2));
+    GPIOA_MODER |=  (3U << (4 * 2));
+}
+
+static void adc_init(void)
+{
+    /* Enable ADC1 clock */
+    RCC_APB2ENR |= ADC1EN;
+
+    /* Turn ADC on */
+    ADC1_CR2 |= ADC_CR2_ADON;
+}
+
+static uint16_t adc_read_channel(uint8_t channel)
+{
+    /* Sequence length = 1 conversion */
+    ADC1_SQR1 = 0;
+
+    /* Put selected channel in 1st slot */
+    ADC1_SQR3 = channel;
+
+    /* Start conversion */
+    ADC1_CR2 |= ADC_CR2_SWSTART;
+
+    /* Wait for conversion complete */
+    while ((ADC1_SR & ADC_SR_EOC) == 0)
+    {
+    }
+
+    /* Read result */
+    return (uint16_t)ADC1_DR;
+}
+
+int main(void)
+{
+    adc_gpio_init();
+    adc_init();
+
+    while (1)
+    {
+        joy_x = adc_read_channel(1);   /* PA1 */
+        joy_y = adc_read_channel(4);   /* PA4 */
+    }
+}
