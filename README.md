@@ -110,7 +110,7 @@ On demo day, the project will be demonstrated using two small RC cars operating 
 
 ### Last week's progress
 
-This week we decided to switch boards to STM32. We were able to read 2-joysticks inputs using the ADC's on the board. This required us to write a simple ADC driver. We also wrote an untested SPI driver to general SPI communication. Additionally we designed a more detailed schematic. 
+This week we decided to switch boards to STM32. We were able to read 2-joysticks inputs using the ADC's on the board. This required us to write a simple ADC driver. We also wrote an untested SPI driver to general SPI communication. Additionally we designed a more detailed schematic. (please see Code folder and Images folder)
 
 ### Current state of project
 Currently we are reading the joystick values correctly. Additionally, we have an SPI driver. We also have the parts ordered. 
