@@ -116,6 +116,7 @@ This week we decided to switch boards to STM32. We were able to read 2-joysticks
 Currently we are reading the joystick values correctly. Additionally, we have an SPI driver. We also have the parts ordered. 
 
 ### Next week's plan
+By next week, we wish to have all modular moving parts working seperatly. This means ADC driver, SPI communication for LCD AND NRF module, IR sensing, and motors being driven via PWM. These are all the "moving" parts of the project. 
 
 ## Sprint Review #2
 
