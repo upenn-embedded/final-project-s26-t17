@@ -99,7 +99,7 @@ On demo day, the project will be demonstrated using two small RC cars operating 
 
 | Milestone  | Functionality Achieved | Distribution of Work |
 | ---------- | ---------------------- | -------------------- |
-| Sprint #1  |                        |                      |
+| Sprint #1  |            Basic Joystick reading + detailed Schema          |                      |
 | Sprint #2  |                        |                      |
 | MVP Demo   |                        |                      |
 | Final Demo |                        |                      |
