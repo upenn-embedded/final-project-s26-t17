@@ -123,10 +123,22 @@ By next week, we wish to have all modular moving parts working seperatly. This m
 ## Sprint Review #2
 
 ### Last week's progress
+This week, the primay points of progress where the completion of many of the sub-processess working individually. Namely, we have a 2-joysticks that can independently control two motors (wireless communication is still WIP). Additionally, we have a working SPI driver and libraries for LCD screen display, and IMU read. Please refer to the Code/Libraries(WIP) folder to see all of the driver and library code. Also see below for some images and demos. 
 
 ### Current state of project
+Currently Reading various IMU input via SPI driver + Custom IMU Library Code: 
+[Click here](https://drive.google.com/file/d/1JL8hYtsbjdTGgINUwH7gA-cYNsOINLV4/view?usp=sharing)
+
+Video of Motors being independently and simutaneously controlled via joystick while LCD screen displays simple image: 
+[Click here](https://drive.google.com/file/d/1q-dIAWgbDD3BVFPxORT9Md2qz9mlJeNM/view?usp=sharing)
+
+
+Hardware Diagram: 
+
+
 
 ### Next week's plan
+For next week, we must complete wireless communication and also have a fully working car that can move and respoind to joystick input. 
 
 ## MVP Demo
 
