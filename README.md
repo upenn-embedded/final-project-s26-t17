@@ -1,17 +1,17 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/-Acvnhrq)
 # Final Project
 
-**Team Number:**
+**Team Number:17**
 
-**Team Name:**
+**Team Name: RC Car Game**
 
 | Team Member Name | Email Address       |
 |------------------|---------------------|
 | David Aquino   | aquinod@seas.upenn.edu |
-| [Name 2]         | [Email 2]           |
+| Alexander Freeman| alfre@seas.upenn.edu|
 | [Name 3]         | [Email 3]           |
 
-**GitHub Repository URL:** 
+**GitHub Repository URL: https://github.com/upenn-embedded/final-project-s26-t17#** 
 
 **GitHub Pages Website URL:** [for final submission]*
 
@@ -21,10 +21,11 @@
 Our project is a 2-player game of “tag” with RC cars. Each player is given a controller to control their vehicle, with one player starting as the chaser and one starting as the runner. If the chaser is able to bump/tag the runner, then the roles reverse after a 5 second cool down period. Roles will be indicated by the LCD screen on the top of the car. The game will end after a certain amount of time has elapsed and the current chaser will be crowned the winner. 
 
 ### 2. Motivation
-The primary motive of the game is for the function of entertainment. A standout feature of this game will be the collision detection and role switching between the two vehicles. On top of this, SPI communication between the MCU and LCD in conjunction with the wireless communication between the controller and cars MCU are other notable features that will require technical exploration and thought. Ultimately, the game itself will not only be fun, but the technical breadth required to realize the project will also provide us with a unique set of engineering problems to solve (and learn from). 
+The primary motive of the game is for the function of entertainment. A standout feature of this game will be the collision detection and role switching between the two vehicles. On top of this, SPI communication between the MCU and LCD in conjunction with the wireless communication between the controller and cars MCU are other notable features that will require technical exploration and thought. Ultimately, the game itself will not only be fun, but the technical breadth required to realize the project will also provide us with a unique set of engineering problems to solve (and learn from).
 
 
 ### 3. System Block Diagram
+
 controller diagram: 
 ![alt text](Images/controller_diagram.png)
 
@@ -32,6 +33,7 @@ car diagram:
 ![alt text](Images/car_diagram.png)
 
 ### 4. Design Sketches
+
 ![alt text](Images/drawing.png)
 
 ### 5. Software Requirements Specification (SRS)
@@ -73,7 +75,7 @@ Here, you will define any special terms, acronyms, or abbreviations you plan to 
 [Visit BOM](https://docs.google.com/spreadsheets/d/1tswUpjjSOV8vyMNagtu2i6aR_z83_FL3piSMzd2DsaQ/edit?usp=sharing)
 
 Remote:
-ATmega328PB
+STM nucleo
 NRF24L01 transceiver module
 Thumbstick potentiometer (x2)
 Start/reset button
@@ -81,12 +83,12 @@ Start/reset button
 AA battery pack + holder
 
 Car:
-ATmega328PB
+STM nucleo
 NRF24L01 transceiver module
 Mecanum wheel chassis
-DC gear motors (x4)
-H-bridge motor driver (x4, or dual H-bridge x2)
-MPU-6050 accelerometer
+DC gear motor
+Steering Servo Motor
+H-bridge motor driver (x2)
 LEDs (x2)
 AA battery pack + holder
 
@@ -113,10 +115,10 @@ On demo day, the project will be demonstrated using two small RC cars operating 
 This week we decided to switch boards to STM32. We were able to read 2-joysticks inputs using the ADC's on the board. This required us to write a simple ADC driver. We also wrote an untested SPI driver to general SPI communication. Additionally we designed a more detailed schematic. (please see Code folder and Images folder)
 
 ### Current state of project
-Currently we are reading the joystick values correctly. Additionally, we have an SPI driver. We also have the parts ordered. 
+Currently we are reading the joystick values correctly. Additionally, we have an SPI driver. We also have the parts ordered.
 
 ### Next week's plan
-By next week, we wish to have all modular moving parts working seperatly. This means ADC driver, SPI communication for LCD AND NRF module, IR sensing, and motors being driven via PWM. These are all the "moving" parts of the project. 
+By next week, we wish to have all modular moving parts working seperatly. This means ADC driver, SPI communication for LCD AND NRF module, IR sensing, and motors being driven via PWM. These are all the "moving" parts of the project.
 
 ## Sprint Review #2
 
