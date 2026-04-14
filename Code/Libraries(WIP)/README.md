@@ -61,9 +61,9 @@ Enables wireless communication using NRF modules.
 
 **Status**
 
-* Not yet implemented
-* Planned to use SPI driver
-* Design pending
+* Basic `NRF24L01` driver implemented
+* Uses `SPI1` plus dedicated `PC4` (`CSN`) and `PC5` (`CE`)
+* Supports initialization, TX setup, RX setup, send, and payload read
 ---
 
 ## IR Detection Library

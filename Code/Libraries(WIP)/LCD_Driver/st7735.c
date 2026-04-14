@@ -104,6 +104,7 @@ static void st7735_reset(void)
 
 static void st7735_write_command(uint8_t cmd)
 {
+    spi1_set_mode(SPI_MODE_3);
     dc_command();
     cs_enable();
     spi1_transmit(&cmd, 1);
@@ -112,6 +113,7 @@ static void st7735_write_command(uint8_t cmd)
 
 static void st7735_write_data(const uint8_t *data, uint32_t size)
 {
+    spi1_set_mode(SPI_MODE_3);
     dc_data();
     cs_enable();
     spi1_transmit((uint8_t *)data, size);
@@ -164,6 +166,7 @@ void st7735_init(void)
 {
     spi_gpio_init();
     spi1_config();
+    spi1_set_mode(SPI_MODE_3);
     st7735_gpio_init();
     st7735_reset();
 
@@ -228,6 +231,7 @@ void st7735_fill_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t c
     buf[1] = (uint8_t)(color & 0xFF);
 
     dc_data();
+    spi1_set_mode(SPI_MODE_3);
     cs_enable();
 
     pixels = (uint32_t)w * (uint32_t)h;

@@ -1,6 +1,17 @@
 #include "spi.h"
 #include "stm32f4xx.h"
 
+void spi1_set_mode(uint8_t mode)
+{
+    SPI1->CR1 &= ~((1U << 0) | (1U << 1));
+
+    if (mode == SPI_MODE_3)
+    {
+        SPI1->CR1 |= (1U << 0);
+        SPI1->CR1 |= (1U << 1);
+    }
+}
+
 void spi_gpio_init(void)
 {
     // Enable clock access to GPIOA
@@ -51,10 +62,6 @@ void spi1_config(void)
     SPI1->CR1 &= ~(7U << 3);
     SPI1->CR1 |=  (1U << 3);
 
-    // Set CPOL = 1 and CPHA = 1
-    SPI1->CR1 |= (1U << 0);
-    SPI1->CR1 |= (1U << 1);
-
     // Full duplex
     SPI1->CR1 &= ~(1U << 10);
 
@@ -70,6 +77,9 @@ void spi1_config(void)
     // Software slave management: SSM = 1, SSI = 1
     SPI1->CR1 |= (1U << 8);
     SPI1->CR1 |= (1U << 9);
+
+    // Default existing peripherals to mode 3.
+    spi1_set_mode(SPI_MODE_3);
 
     // Enable SPI
     SPI1->CR1 |= (1U << 6);
