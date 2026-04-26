@@ -9,7 +9,8 @@
 |------------------|---------------------|
 | David Aquino   | aquinod@seas.upenn.edu |
 | Alexander Freeman| alfre@seas.upenn.edu|
-| [Name 3]         | [Email 3]           |
+| Lucas Krippendorff| lukr@seas.upenn.edu|
+| Anil Ghosh| atghosh@seas.upenn.edu|
 
 **GitHub Repository URL: https://github.com/upenn-embedded/final-project-s26-t17#** 
 
