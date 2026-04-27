@@ -102,10 +102,10 @@ On demo day, the project will be demonstrated using two small RC cars operating 
 
 | Milestone  | Functionality Achieved | Distribution of Work |
 | ---------- | ---------------------- | -------------------- |
-| Sprint #1  |            Basic Joystick reading + detailed Schema          |                      |
-| Sprint #2  |                        |                      |
-| MVP Demo   |                        |                      |
-| Final Demo |                        |                      |
+| Sprint #1  |    Basic joystick reading and detailed schematics     |    Schematics, software, testing, prototyping    |
+| Sprint #2  |    Motor control and SPI    |    Software, component testing    |
+| MVP Demo   |    One semi-driving car with functional controller    |    Power management, software, testing    |
+| Final Demo |    Two functional driving cars and controller pairs, IR sensing, LCD display    |    Power management, weight/wire reduction, software    |
 
 **This is the end of the Project Proposal section. The remaining sections will be filled out based on the milestone schedule.**
 
