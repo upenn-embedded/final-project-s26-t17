@@ -200,6 +200,11 @@ Most software and hardware requirements were met or exceeded; the primary shortf
 
 ### 4. Conclusion
 
+The project successfully integrated multiple subsystems on bare metal, including custom drivers for SPI, ADC, LCD, motor control, joystick input, and IMU. The wireless link operated reliably across the full long axis of Detkin Lab, well beyond the originally targeted range, and the cars drove and steered consistently throughout the demo.
+
+The primary shortfall was the IR detection subsystem. The receiver's sensitivity to ambient IR (sunlight and lab lighting) made detection unreliable outside controlled conditions, which prevented the IR-based tag mechanic from reaching a gameable state.
+
+A revision would address the IR subsystem first, likely with an optical bandpass filter, physical shielding around the receiver, and a coded or correlated IR protocol with stronger noise rejection. From there, finishing the tag-and-cooldown game logic on top of a more robust detection layer would complete the originally-scoped gameplay.
 
 ## References
 
