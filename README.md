@@ -14,7 +14,9 @@
 
 **GitHub Repository URL: https://github.com/upenn-embedded/final-project-s26-t17#** 
 
-**GitHub Pages Website URL:** [for final submission]*
+**GitHub Pages Website URL: https://upenn-embedded.github.io/final-project-s26-t17/**
+
+![RC Car Game](Images/400x400img.png)
 
 ## Final Project Proposal
 
@@ -152,20 +154,45 @@ If you’ve never made a GitHub pages website before, you can follow this webpag
 
 ### 2. Images
 
+**Car (top view)** — STM32 Nucleo, NRF24L01 transceiver, LCD, and IR components visible.
+
+![Top view of the car](Images/car-top.png)
+
+**Car (side view)** — chassis, motor placement, and rear IR receiver.
+
+![Side view of the car](Images/car-side.png)
+
+**Controller (top view)** — dual joysticks, STM32, and NRF24L01.
+
+![Top view of the controller](Images/controller-top.jpg)
+
 ### 3. Results
+
+Most software and hardware requirements were met or exceeded; the primary shortfall was the IR-based tag mechanic, which never reached a reliably gameable state due to ambient IR noise.
 
 #### 3.1 Software Requirements Specification (SRS) Results
 
-| ID     | Description                                                                                               | Validation Outcome                                                                          |
-| ------ | --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| SRS-01 | The IMU 3-axis acceleration will be measured with 16-bit depth every 100 milliseconds +/-10 milliseconds. | Confirmed, logged output from the MCU is saved to "validation" folder in GitHub repository. |
+| ID     | Description | Validation Outcome |
+| ------ | ----------- | ------------------ |
+| SRS-01 | Remote Drive Response: The vehicle shall respond to valid remote control drive commands within 100 ms of transmission, including forward, reverse, left, right, and stop commands. Validation: Timestamp controller transmission and observed motor actuation using serial logs and/or video frame analysis. | **Achieved.** Joystick→wheel response visible within 1–2 frames at 30 fps (~33–67 ms) in [demo video](https://drive.google.com/file/d/1q-dIAWgbDD3BVFPxORT9Md2qz9mlJeNM/view?usp=sharing). Path: ADC → NRF24 → `motor_set_command()` → TIM4 PWM. |
+| SRS-02 | Continuous Motor and Steering Control: The firmware shall update motor speed and steering control signals at a rate of at least 20 Hz during active vehicle operation. Validation: Measure PWM/control signal update timing with an oscilloscope or logic analyzer while the car is being driven. | **Achieved.** TIM4 PWM runs at 1 kHz (PSC=15, ARR=999); the joystick→motor loop updates duty cycle continuously, well above 20 Hz. |
+| SRS-03 | IR Tag Detection: The system shall detect a valid IR tag event when the rear-mounted IR receiver detects a modulated IR signal from the opposing vehicle for a minimum number of consecutive samples. Validation: Perform controlled alignment tests and verify that valid IR transmissions consistently trigger detection while ambient light does not. | **Partially met.** IR proximity detection works at close range but is unreliable due to ambient IR noise; never reached a gameable state. |
+| SRS-04 | Tag Validation and Cooldown Logic: The system shall confirm a tag event only after satisfying a defined detection condition and shall enforce a cooldown period of at least 1 second during which additional tags are ignored. Validation: Simulate repeated IR exposure and verify that only valid, non-overlapping tag events are registered. | **Not validated.** Cooldown logic exists in firmware but SRS-03 never produced reliable tag events to validate against. |
+| SRS-05 | Role Switching via Wireless Communication: Upon detection of a valid tag event, the system shall transmit a role-switch message and update the chaser/runner roles on both vehicles within 200 ms. Validation: Trigger tag events and verify synchronized role updates on both cars using debug logs and observed IR transmitter activation. | **Partially met.** Role-switch firmware and NRF24 packet format implemented; never end-to-end validated due to unreliable SRS-03 trigger. |
+| SRS-06 | Directional Tagging Behavior: The system shall only register a tag when the chaser's front-mounted IR transmitter aligns with the runner's rear-mounted receiver. Validation: Test various orientations between vehicles and confirm that tags are only registered when the chaser is positioned behind the runner. | **Not met.** Orientation/alignment behavior was not tested due to SRS-03 unreliability. |
+| SRS-07 | Game State Feedback: The system shall provide real-time visual feedback indicating the current role (chaser or runner) and tag events. Validation: Trigger role changes and tag events and verify correct display outputs. | **Achieved.** LCD updates role indicator on each state transition; visible in [demo video](https://drive.google.com/file/d/1q-dIAWgbDD3BVFPxORT9Md2qz9mlJeNM/view?usp=sharing). Driven over SPI using the custom ST7735 driver. |
 
 #### 3.2 Hardware Requirements Specification (HRS) Results
 
-| ID     | Description                                                                                                                        | Validation Outcome                                                                                                      |
-| ------ | ---------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| HRS-01 | A distance sensor shall be used for obstacle detection. The sensor shall detect obstacles at a maximum distance of at least 10 cm. | Confirmed, sensed obstacles up to 15cm. Video in "validation" folder, shows tape measure and logged output to terminal. |
-|        |                                                                                                                                    |                                                                                                                         |
+| ID     | Description | Validation Outcome |
+| ------ | ----------- | ------------------ |
+| HRS-01 | Drive Motor Actuation: The vehicle shall include a motor drive subsystem capable of driving the car forward and reverse across a flat indoor surface under onboard power. Validation: Test the car on a flat surface and verify successful forward and reverse motion over a fixed distance. | **Achieved (exceeded).** Two rear DC motors via H-bridge drove the car across the full long axis of AGH Detkin Lab — far beyond the few-meter footprint originally targeted. [Demo video](https://drive.google.com/file/d/1q-dIAWgbDD3BVFPxORT9Md2qz9mlJeNM/view?usp=sharing). |
+| HRS-02 | Steering Mechanism: The vehicle shall include a steering mechanism that enables controlled left and right turning during remote operation. Validation: Command left and right turns and verify directional change through observed turning maneuvers or measured turning radius. | **Achieved.** Front-wheel DC motor on a second H-bridge (TIM4 CH2) gives left/right steering with spring-return centering, replacing the originally-spec'd servo. |
+| HRS-03 | IR Transmission Subsystem: Each vehicle shall include a forward-facing IR transmitter driven by a PWM signal (~38 kHz) to emit a detectable signal for tagging. Validation: Verify IR emission using an IR receiver module or camera and confirm proper modulation. | **Achieved.** Forward-facing IR LED driven at ~38 kHz from a hardware timer; emission confirmed via phone camera (visible as a bright spot when modulated). |
+| HRS-04 | IR Reception Subsystem: Each vehicle shall include a rear-mounted IR receiver module capable of detecting modulated IR signals from the opposing vehicle. Validation: Confirm reliable detection of transmitted IR signals at distances up to the specified gameplay range of ~6 -10 inches. | **Partially met.** Reliable detection at ~4 in under low ambient IR (evening, uncrowded lab); unreliable in daylight or busy lab as ambient IR overwhelms the receiver. |
+| HRS-05 | Wireless Communication Interface: Each vehicle shall include a wireless transceiver (nRF24L01) interfaced via SPI to enable communication with its controller and the opposing vehicle. Validation: Verify bidirectional communication by transmitting and receiving control and game-state packets. | **Achieved (exceeded).** NRF24L01 over our custom SPI driver; reliable bidirectional control across the full long axis of AGH Detkin Lab. [Demo video](https://drive.google.com/file/d/1q-dIAWgbDD3BVFPxORT9Md2qz9mlJeNM/view?usp=sharing). |
+| HRS-06 | Status Feedback Hardware: Each vehicle shall include an LCD Display to communicate role status and tag events to the user. Validation: Trigger system states and verify correct activation of LCD. | **Achieved.** 1.8" ST7735 LCD over SPI shows the current role indicator and refreshes immediately on state transitions. |
+| HRS-07 | Regulated Power Distribution: Each vehicle shall include a power subsystem that provides regulated voltage levels for logic components (MCU, sensors, RF module) and motor actuation components. Validation: Measure voltage levels under idle and active conditions and verify stable operation. | **Achieved.** 9V battery → H-bridge motor inputs; 5V LDO supplies the STM32, NRF24L01, and LCD. Stable across idle and active operation. |
 
 ### 4. Conclusion
 

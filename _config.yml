@@ -1,0 +1,3 @@
+theme: jekyll-theme-cayman
+title: ESE 3500 Final Project — RC Car Game
+description: Team 17 — A two-player RC car tag game built on STM32 with NRF24L01 wireless, IR proximity detection, and SPI-driven LCD feedback.
