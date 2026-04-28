@@ -137,7 +137,7 @@ Video of Motors being independently and simutaneously controlled via joystick wh
 
 
 Hardware Diagram: 
-
+<img width="752" height="743" alt="Screenshot 2026-04-17 235517" src="https://github.com/user-attachments/assets/4d93a15e-69d2-47b4-8f68-7a86a1991739" />
 
 
 ### Next week's plan
