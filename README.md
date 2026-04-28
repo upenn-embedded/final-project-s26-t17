@@ -145,10 +145,10 @@ For next week, we must complete wireless communication and also have a fully wor
 
 ## MVP Demo
 
-Controller Diagram:
+Car Diagram:
 <img width="1195" height="573" alt="Screenshot 2026-04-17 234315" src="https://github.com/user-attachments/assets/24bf753a-1854-481f-bf1a-444430ce3e73" />
 
-Car Diagram: 
+Controller Diagram: 
 <img width="1094" height="479" alt="Screenshot 2026-04-17 234751" src="https://github.com/user-attachments/assets/8e8494fd-3c04-4244-885f-1ef6d361c597" />
 
 
