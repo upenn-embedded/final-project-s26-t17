@@ -151,6 +151,21 @@ Car Diagram:
 Controller Diagram: 
 <img width="1094" height="479" alt="Screenshot 2026-04-17 234751" src="https://github.com/user-attachments/assets/8e8494fd-3c04-4244-885f-1ef6d361c597" />
 
+Firmware Breakdown:
+///
+
+### Progress on Requirements
+
+We met our first software requirement SRS-01, as we had continuous response to controller comands by the car without visible delay. SRS-02 was likely satisfied as well but we do not yet have validation of that. 
+
+With hardware, we made more porgress. HRS-01, HRS-02, and HRS-07 were all fulfilled. We had drive capability confirmed by observation (the car moved with commands). Our steering also worked in our static test and in our trials of actually driving the car (turning manuevers successfully performed. For HRS-07, we switched from a 6V system to a 9V system which increased the mobility of the car enough to move slowly despite the motors struggling with weight. Our LDO dropped the 9V to 5V which then externally powered out STM32 and H-bridge. The H-bridge then dorpped some votlage and powered the steering and drive motors. While LDOs are not efficient at such a drop, they were more compact and easily usable than our 6V battery packs. 6V was also not very good at getting motors moving as we realized the LDO reduced its input non-trivially. 
+
+### Next Steps
+
+For the next stretch, we will be focusing on the IR tag system and game logic in addition to some more hardware and power streamlining. The task of greatest importance is to build a second car, which seems risky but can be made alot safer by optimzing our first car design before trying to make a second one. By addressing the weight issues and reducing hardware before attempting another build, we can really save time on the debugging. In particular, cutting down wires and moving from breadboar dot perf board could make movement alot easier. However, an ultimately likely solution would be to replace the motors with higher torque versions such as those we initially ordered.  
+
+
+
 
 ## Final Report
 
