@@ -136,7 +136,7 @@ Video of Motors being independently and simutaneously controlled via joystick wh
 [Click here](https://drive.google.com/file/d/1q-dIAWgbDD3BVFPxORT9Md2qz9mlJeNM/view?usp=sharing)
 
 
-Hardware Diagram: 
+Controller Hardware Diagram: 
 <img width="752" height="743" alt="Screenshot 2026-04-17 235517" src="https://github.com/user-attachments/assets/4d93a15e-69d2-47b4-8f68-7a86a1991739" />
 
 
@@ -144,7 +144,13 @@ Hardware Diagram:
 For next week, we must complete wireless communication and also have a fully working car that can move and respoind to joystick input. 
 
 ## MVP Demo
-Done with TA
+
+Controller Diagram:
+<img width="1195" height="573" alt="Screenshot 2026-04-17 234315" src="https://github.com/user-attachments/assets/24bf753a-1854-481f-bf1a-444430ce3e73" />
+
+Car Diagram: 
+<img width="1094" height="479" alt="Screenshot 2026-04-17 234751" src="https://github.com/user-attachments/assets/8e8494fd-3c04-4244-885f-1ef6d361c597" />
+
 
 ## Final Report
 
