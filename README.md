@@ -144,6 +144,7 @@ Hardware Diagram:
 For next week, we must complete wireless communication and also have a fully working car that can move and respoind to joystick input. 
 
 ## MVP Demo
+Done with TA
 
 ## Final Report
 
