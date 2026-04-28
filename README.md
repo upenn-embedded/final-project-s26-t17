@@ -151,8 +151,14 @@ Car Diagram:
 Controller Diagram: 
 <img width="1094" height="479" alt="Screenshot 2026-04-17 234751" src="https://github.com/user-attachments/assets/8e8494fd-3c04-4244-885f-1ef6d361c597" />
 
-Firmware Breakdown:
-///
+## Firmware Breakdown:
+For the MVP demo, the firmware was organized around four main responsibilities: joystick input, wireless communication, motor control, and basic game-state feedback. The controller firmware reads two joystick axes through the STM32 ADC, converts each analog value into a signed motor command from -100 to 100, and sends those commands wirelessly to the car using the nRF24L01 module. A small deadzone is applied around the joystick center position so that minor ADC noise does not cause unintended motor movement.
+
+On the car side, the firmware listens for incoming nRF24 packets from its paired controller. Each packet contains two motor commands, one for each drive motor. When a valid packet is received, the car updates the H-bridge direction pins and PWM duty cycles for both motors. The motor driver supports forward, reverse, and stop states, with PWM generated using TIM4 to control speed.
+
+The MVP firmware also includes early integration of the game logic. The runner car monitors its IR receiver for recent activity, and if an IR tag is detected, it enters a game-over state and stops both motors. After this event, the runner car sends a status packet back over the radio link so that the controllers can update their displays. The controller LCD uses simple color feedback to show communication status, player role, and game-over state.
+
+At the MVP stage, the firmware demonstrated the core control loop needed for gameplay: joystick input was successfully converted into wireless motor commands, the car responded to those commands through PWM motor control, and the first version of tag/game-over behavior was integrated. Some final-game features, such as full two-car role switching, cooldown timing, and polished display output, were left for the final demo implementation.
 
 ### Progress on Requirements
 
